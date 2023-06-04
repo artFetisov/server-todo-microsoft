@@ -13,13 +13,14 @@ import { getJwtConfig } from "../configs/jwt.config";
   providers: [TokenService],
   imports: [
     SequelizeModule.forFeature([Token, User]),
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: getJwtConfig
     })
   ],
-  exports: [TokenService, JwtModule]
+  exports: [TokenService]
 })
 export class TokenModule {
 }

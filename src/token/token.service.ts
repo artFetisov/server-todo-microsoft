@@ -3,17 +3,24 @@ import { InjectModel } from "@nestjs/sequelize";
 import { Token } from "./token.model";
 import { User } from "../users/users.model";
 import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class TokenService {
-  constructor(@InjectModel(Token) private tokenRepository: typeof Token, private jwtService: JwtService) {
+  constructor(@InjectModel(Token) private tokenRepository: typeof Token, private jwtService: JwtService, private configService: ConfigService) {
   }
 
   async issueTokenPair(user: User) {
     const payload = { id: user.id, email: user.email };
 
-    const refreshToken = await this.jwtService.signAsync(payload, { expiresIn: "15d" });
-    const accessToken = await this.jwtService.signAsync(payload, { expiresIn: "15m" });
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get("PRIVATE_KEY_REFRESH"),
+      expiresIn: "15d"
+    });
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get("PRIVATE_KEY_ACCESS"),
+      expiresIn: "15m"
+    });
 
     return {
       refreshToken,
