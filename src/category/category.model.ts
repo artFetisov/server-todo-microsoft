@@ -16,3 +16,4 @@ export class Category extends Model<Category, CategoryCreationsAttrs> {
   @HasMany(() => Task)
   tasks: Task[];
 }
+

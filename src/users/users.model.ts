@@ -1,12 +1,12 @@
-import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 interface UserCreationsAttrs {
   email: string;
-  password: string;
+  passwordHash: string;
 }
 
 @Table({ tableName: "users" })
-export class User extends Model<User, UserCreationsAttrs> {
+export class User extends Model {
   @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
   id: number;
 
@@ -14,5 +14,5 @@ export class User extends Model<User, UserCreationsAttrs> {
   email: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  password: string;
+  passwordHash: string;
 }

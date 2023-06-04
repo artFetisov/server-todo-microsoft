@@ -10,6 +10,7 @@ import { Task } from './task/task.model'
 import { Category } from './category/category.model'
 import { Step } from './step/task-step.model'
 import { StepModule } from './step/step.module'
+import { TokenModule } from './token/token.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { StepModule } from './step/step.module'
     CategoryModule,
     TaskModule,
     StepModule,
+    TokenModule,
   ],
 })
 export class AppModule {}

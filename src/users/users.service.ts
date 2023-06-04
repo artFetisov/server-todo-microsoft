@@ -8,16 +8,16 @@ export class UsersService {
   constructor(@InjectModel(User) private userRepository: typeof User) {
   }
 
-  async createUser(dto: CreateUserDto) {
-    return await this.userRepository.create(dto);
+  async createUser({ email, password }: CreateUserDto) {
+    return this.userRepository.create({ email, passwordHash: password });
   }
 
   async getAllUsers() {
-    return await this.userRepository.findAll({ include: { all: true } });
+    return this.userRepository.findAll({ include: { all: true } });
   }
 
-  async getUserById(email: string) {
-    return await this.userRepository.findOne({ where: { email }, include: { all: true } });
+  async getUser(email: string) {
+    return this.userRepository.findOne({ where: { email }, include: { all: true } });
   }
 
 }

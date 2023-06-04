@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category-dto";
 
@@ -13,6 +13,7 @@ export class CategoryController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   create(@Body() dto: CreateCategoryDto) {
     return this.categoryService.createCategory(dto);
   }
