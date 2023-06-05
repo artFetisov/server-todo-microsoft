@@ -8,16 +8,16 @@ export class CategoryService {
   constructor(@InjectModel(Category) private categoryRepository: typeof Category) {
   }
 
-  async getAll() {
-    return this.categoryRepository.findAll();
+  async getAll(userId: number) {
+    return this.categoryRepository.findAll({ where: { userId } });
   }
 
   async getCategoryById(categoryId: number) {
     return this.categoryRepository.findOne({ where: { id: categoryId } });
   }
 
-  async createCategory(dto: CreateCategoryDto) {
-    const category = await this.categoryRepository.create(dto);
+  async createCategory({ title }: CreateCategoryDto, userId: number) {
+    const category = await this.categoryRepository.create({ title, userId });
 
     if (!category) {
       throw new HttpException("Список не найден", HttpStatus.NOT_FOUND);

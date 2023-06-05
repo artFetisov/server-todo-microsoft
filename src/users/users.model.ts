@@ -1,4 +1,6 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Task } from "../task/task.model";
+import { Category } from "../category/category.model";
 
 interface UserCreationsAttrs {
   email: string;
@@ -15,4 +17,7 @@ export class User extends Model {
 
   @Column({ type: DataType.STRING, allowNull: false })
   passwordHash: string;
+
+  @HasMany(() => Category)
+  categories: Category[];
 }

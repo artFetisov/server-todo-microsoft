@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes, V
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category-dto";
 import { JwtAuthGuard } from "../auth/guards/jwt.guard";
+import { UserData } from "../users/decorators/user-data.decorator";
+import { User } from "../users/users.model";
 
 @Controller("/categories")
 export class CategoryController {
@@ -10,16 +12,16 @@ export class CategoryController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getAll() {
-    return this.categoryService.getAll();
+  getAll(@UserData() { id }: Pick<User, "id">) {
+    return this.categoryService.getAll(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
   @Post()
   @UsePipes(new ValidationPipe())
-  create(@Body() dto: CreateCategoryDto) {
-    return this.categoryService.createCategory(dto);
+  create(@Body() dto: CreateCategoryDto, @UserData() { id }: Pick<User, "id">) {
+    return this.categoryService.createCategory(dto, id);
   }
 
   @UseGuards(JwtAuthGuard)
