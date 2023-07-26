@@ -1,5 +1,4 @@
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
-import { Task } from "../task/task.model";
 import { Category } from "../category/category.model";
 
 interface UserCreationsAttrs {
