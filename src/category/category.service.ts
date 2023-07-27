@@ -5,15 +5,16 @@ import { CreateCategoryDto } from "./dto/create-category-dto";
 
 @Injectable()
 export class CategoryService {
-  constructor(@InjectModel(Category) private categoryRepository: typeof Category) {
-  }
+  constructor(
+    @InjectModel(Category) private categoryRepository: typeof Category,
+  ) {}
 
   async getAll(userId: number) {
     return this.categoryRepository.findAll({ where: { userId } });
   }
 
   async getCategoryById(categoryId: number) {
-    return this.categoryRepository.findOne({ where: { id: categoryId } });
+    return this.categoryRepository.findOne({ rejectOnEmpty: undefined, where: { id: categoryId } });
   }
 
   async createCategory({ title }: CreateCategoryDto, userId: number) {
@@ -26,7 +27,7 @@ export class CategoryService {
   }
 
   async updateCategory(id: number, dto: CreateCategoryDto) {
-    const category = await this.categoryRepository.findOne({ where: { id } });
+    const category = await this.categoryRepository.findOne({ rejectOnEmpty: undefined, where: { id } });
 
     if (!category) {
       throw new HttpException("Список не найден", HttpStatus.NOT_FOUND);
@@ -37,7 +38,7 @@ export class CategoryService {
   }
 
   async deleteCategory(id: number) {
-    const category = await this.categoryRepository.findOne({ where: { id } });
+    const category = await this.categoryRepository.findOne({ rejectOnEmpty: undefined, where: { id } });
 
     if (!category) {
       throw new HttpException("Список не найден", HttpStatus.NOT_FOUND);

@@ -1,9 +1,9 @@
-import { IsNumber, IsString } from 'class-validator'
+import { IsString } from "class-validator";
 
 export class SortTaskDto {
   @IsString()
-  readonly property: string
+  readonly property: string;
 
   @IsString()
-  readonly direction: 'DESC' | 'ASC'
+  readonly direction: "DESC" | "ASC";
 }

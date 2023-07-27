@@ -1,11 +1,13 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { User } from "../users.model";
 
-type UserKeys = keyof User
+type UserKeys = keyof User;
 
-export const UserData = createParamDecorator((data: UserKeys, ctx: ExecutionContext) => {
-  const request = ctx.switchToHttp().getRequest();
-  const user = request.user;
+export const UserData = createParamDecorator(
+  (data: UserKeys, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const user = request.user;
 
-  return data ? user?.[data] : user;
-});
+    return data ? user?.[data] : user;
+  },
+);

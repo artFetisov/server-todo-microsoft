@@ -8,20 +8,29 @@ import { Category } from "src/category/category.model";
 import { Op } from "sequelize";
 
 export class TaskService {
-  constructor(@InjectModel(Task) private taskRepository: typeof Task, private categoryService: CategoryService) {
-  }
+  constructor(
+    @InjectModel(Task) private taskRepository: typeof Task,
+    private categoryService: CategoryService,
+  ) {}
 
   async getAll(): Promise<Task[]> {
     return this.taskRepository.findAll({ include: { all: true } });
   }
 
   async getByCategoryId(categoryId: number) {
-    return this.taskRepository.findAll({ where: { categoryId }, include: { all: true } });
+    return this.taskRepository.findAll({
+      where: { categoryId },
+      include: { all: true },
+    });
   }
 
   async createTask(dto: CreateTaskDto) {
-    const newTask = await this.taskRepository.create(dto, { include: Category });
-    const category = await this.categoryService.getCategoryById(newTask.categoryId);
+    const newTask = await this.taskRepository.create(dto, {
+      include: Category,
+    });
+    const category = await this.categoryService.getCategoryById(
+      newTask.categoryId,
+    );
 
     return { newTask, category };
   }
@@ -30,10 +39,10 @@ export class TaskService {
     return this.taskRepository.findAll({
       where: {
         title: {
-          [Op.like]: `%${title}%`
-        }
+          [Op.like]: `%${title}%`,
+        },
       },
-      include: { all: true }
+      include: { all: true },
     });
   }
 
@@ -41,12 +50,16 @@ export class TaskService {
     return this.taskRepository.findAll({
       where: { categoryId },
       include: { all: true },
-      order: [[property, direction]]
+      order: [[property, direction]],
     });
   }
 
   async updateTask(id: number, dto: UpdateTaskDto) {
-    const task = await this.taskRepository.findOne({ where: { id }, include: { all: true } });
+    const task = await this.taskRepository.findOne({
+      rejectOnEmpty: undefined,
+      where: { id },
+      include: { all: true }
+    });
 
     await task.update({ ...dto });
 
@@ -54,7 +67,7 @@ export class TaskService {
   }
 
   async deleteTask(taskId: number) {
-    const task = await this.taskRepository.findOne({ where: { id: taskId } });
+    const task = await this.taskRepository.findOne({ rejectOnEmpty: undefined, where: { id: taskId } });
 
     if (!task) {
       throw new HttpException("Такая задача не найдена", HttpStatus.NOT_FOUND);

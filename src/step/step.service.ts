@@ -4,8 +4,7 @@ import { CreateStepDto } from "./dto/create-step.dto";
 import { UpdateStepDto } from "./dto/update-step.dto";
 
 export class StepService {
-  constructor(@InjectModel(Step) private stepRepository: typeof Step) {
-  }
+  constructor(@InjectModel(Step) private stepRepository: typeof Step) {}
 
   async getAllSteps() {
     return this.stepRepository.findAll();
@@ -20,7 +19,7 @@ export class StepService {
   }
 
   async updateStep(stepId: number, dto: UpdateStepDto) {
-    const step = await this.stepRepository.findOne({ where: { id: stepId } });
+    const step = await this.stepRepository.findOne({ rejectOnEmpty: undefined, where: { id: stepId } });
 
     await step.update(dto);
 
@@ -28,7 +27,7 @@ export class StepService {
   }
 
   async deleteStep(id: number) {
-    const step = await this.stepRepository.findOne({ where: { id } });
+    const step = await this.stepRepository.findOne({ rejectOnEmpty: undefined, where: { id } });
 
     await step.destroy();
 

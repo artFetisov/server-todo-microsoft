@@ -1,4 +1,11 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import {
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from "sequelize-typescript";
 import { Task } from "../task/task.model";
 import { User } from "../users/users.model";
 
@@ -9,7 +16,12 @@ interface CategoryCreationsAttrs {
 
 @Table({ tableName: "categories" })
 export class Category extends Model<Category, CategoryCreationsAttrs> {
-  @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
+  @Column({
+    type: DataType.INTEGER,
+    unique: true,
+    autoIncrement: true,
+    primaryKey: true,
+  })
   id: number;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
@@ -22,4 +34,3 @@ export class Category extends Model<Category, CategoryCreationsAttrs> {
   @Column({ type: DataType.INTEGER })
   userId: number;
 }
-

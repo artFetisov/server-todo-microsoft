@@ -17,10 +17,9 @@ import { getJwtConfig } from "../configs/jwt.config";
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: getJwtConfig
-    })
+      useFactory: getJwtConfig,
+    }),
   ],
-  exports: [TokenService]
+  exports: [TokenService],
 })
-export class TokenModule {
-}
+export class TokenModule {}

@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import { StepService } from "./step.service";
 import { CreateStepDto } from "./dto/create-step.dto";
 import { UpdateStepDto } from "./dto/update-step.dto";
@@ -6,8 +17,7 @@ import { JwtAuthGuard } from "../auth/guards/jwt.guard";
 
 @Controller("tasks/steps")
 export class StepController {
-  constructor(private stepService: StepService) {
-  }
+  constructor(private stepService: StepService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get("/all")

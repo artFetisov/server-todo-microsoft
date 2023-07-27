@@ -1,4 +1,12 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from "sequelize-typescript";
 import { Category } from "../category/category.model";
 import { Step } from "../step/task-step.model";
 
@@ -8,7 +16,12 @@ interface TaskCreationsAttrs {
 
 @Table({ tableName: "tasks" })
 export class Task extends Model<Task, TaskCreationsAttrs> {
-  @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
+  @Column({
+    type: DataType.INTEGER,
+    unique: true,
+    autoIncrement: true,
+    primaryKey: true,
+  })
   id: number;
 
   @Column({ type: DataType.STRING, allowNull: false })
