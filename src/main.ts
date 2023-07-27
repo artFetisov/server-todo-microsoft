@@ -11,7 +11,7 @@ async function start() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors({ credentials: true, origin: "*" });
+  app.enableCors({ credentials: true, origin: true });
 
   app.setGlobalPrefix("api");
 
