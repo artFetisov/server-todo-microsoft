@@ -5,13 +5,13 @@ import { corsMiddleware } from "./middlewares/cors.middleware";
 
 async function start() {
   const PORT = process.env.PORT || 5000;
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
 
   app.use(corsMiddleware);
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors({ credentials: true, origin: true });
+  app.enableCors({ credentials: true, origin: "*" });
 
   app.setGlobalPrefix("api");
 
