@@ -10,7 +10,7 @@ async function start() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors({ credentials: true, origin: "https://client-todo-microsoft.vercel.app" });
+  app.enableCors({ credentials: true, origin: true });
 
   app.setGlobalPrefix("api");
 
