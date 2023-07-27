@@ -11,28 +11,31 @@ import { Category } from "./category/category.model";
 import { Step } from "./step/task-step.model";
 import { StepModule } from "./step/step.module";
 import { TokenModule } from "./token/token.module";
+import * as pg from "pg";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV}.env`,
+      envFilePath: `.${process.env.NODE_ENV}.env`
     }),
     SequelizeModule.forRoot({
       dialect: "postgres",
+      dialectModule: pg,
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       models: [User, Task, Category, Step],
-      autoLoadModels: true,
+      autoLoadModels: true
     }),
     UsersModule,
     AuthModule,
     CategoryModule,
     TaskModule,
     StepModule,
-    TokenModule,
-  ],
+    TokenModule
+  ]
 })
-export class AppModule {}
+export class AppModule {
+}
