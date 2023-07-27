@@ -6,6 +6,9 @@
 .production.env
 .development.env
 
+#ts
+"typescript": "4.2.3"
+
 # Logs
 logs
 *.log
