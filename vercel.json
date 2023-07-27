@@ -19,8 +19,7 @@
         "OPTIONS"
       ],
       "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Authorization": "*"
+        "Access-Control-Allow-Origin": "*"
       }
     }
   ]
