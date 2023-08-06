@@ -32,8 +32,8 @@ export class TokenService {
     };
   }
 
-  async validateToken(token: string) {
-    return this.jwtService.verifyAsync(token);
+  async validateToken(token: string, secretKey: string) {
+    return this.jwtService.verifyAsync(token, { secret: secretKey });
   }
 
   async saveToken(userId: number, refreshToken: string) {

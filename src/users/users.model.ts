@@ -7,12 +7,12 @@ interface UserCreationsAttrs {
 }
 
 @Table({ tableName: "users" })
-export class User extends Model {
+export class User extends Model<User, UserCreationsAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   })
   id: number;
 

@@ -1,23 +1,16 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Post,
-  UsePipes,
-  ValidationPipe,
-  UseGuards,
-  Get,
-} from "@nestjs/common";
+import { Body, Controller, HttpCode, Post, UsePipes, ValidationPipe, UseGuards, Get } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto/auth.dto";
 import { RefreshTokenDto } from "./dto/refresh-token.dto";
 import { JwtAuthGuard } from "./guards/jwt.guard";
 import { UserData } from "src/users/decorators/user-data.decorator";
 import { User } from "src/users/users.model";
+import { AvailableUsersTokensDto } from "./dto/dataUsers.dto";
 
 @Controller("auth")
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
   @UsePipes(new ValidationPipe())
   @Post("/login")
@@ -51,5 +44,11 @@ export class AuthController {
   @HttpCode(200)
   authMe(@UserData() { id }: Pick<User, "id">) {
     return this.authService.authMe(id);
+  }
+
+  @Post("/get-available-accounts")
+  @HttpCode(200)
+  getVerifyUsers(@Body() dataUsers: AvailableUsersTokensDto) {
+    return this.authService.getVerifyUsers(dataUsers);
   }
 }
